@@ -14,12 +14,12 @@ namespace OOP_1sem_Lab6
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Бажаєте згенерувати тестові файли? (y/n)");
+                Console.WriteLine("Do you want to generate test files? (y/n)");
                 Console.ResetColor();
                 key = Console.ReadLine()!;
                 if (key == "y")
                 {
-                    //Generate method
+                    ExceptionsGenerateTestFiles.GenerateTestFiles();
                     break;
                 }
                 if (key != "n")
@@ -29,7 +29,7 @@ namespace OOP_1sem_Lab6
                 }
             }
             while (key != "n");
-            Console.WriteLine("\nПочинаємо обробку файлів...\n");
+            Console.WriteLine("\nStarting file processing...\n");
             Task1();
         }
         private static void Task1()
@@ -46,7 +46,7 @@ namespace OOP_1sem_Lab6
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Критична помилка: Неможливо створити файли звітів.");
+                Console.WriteLine("Critical error: Unable to create report files.");
                 Console.WriteLine(ex.Message);
                 return;
             }
@@ -73,7 +73,7 @@ namespace OOP_1sem_Lab6
                         validCount++;
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"{filename}: Успіх! \t\t {num1} * {num2} = {multiplication}");
+                        Console.WriteLine($"{filename}: Success! {num1} * {num2} = {multiplication}");
                         Console.ResetColor();
                     }
                 }
@@ -106,7 +106,7 @@ namespace OOP_1sem_Lab6
             static void Error(string filename)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{filename}: Помилка! \t [Time: {DateTime.Now.ToLongTimeString()}]");
+                Console.WriteLine($"{filename}: Error! \t [Time: {DateTime.Now.ToLongTimeString()}]");
                 Console.ResetColor();
             }
 
@@ -124,17 +124,16 @@ namespace OOP_1sem_Lab6
             {
                 double average = (double)validSum / validCount;
 
-                Console.WriteLine("\n--- Результат ---");
-                Console.WriteLine($"Кількість валідних добутків: {validCount}");
-                Console.WriteLine($"Середнє арифметичне: {average}");
+                Console.WriteLine("\n--- Result ---");
+                Console.WriteLine($"Number of valid multiplications: {validCount}");
+                Console.WriteLine($"Arithmetic mean: {average}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Неможливо обчислити середнє (можливо, немає валідних даних).");
+                Console.WriteLine("Unable to calculate average (possibly no valid data).");
             }
 
-            Console.WriteLine("Роботу завершено. Перевірте файли .txt");
-            Console.ReadKey();
+            Console.WriteLine("Work completed. Check the .txt files.");
         }
     }
 }
