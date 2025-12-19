@@ -1,5 +1,4 @@
-﻿using Exceptions;
-using System.Text;
+﻿using System.Text;
 
 namespace OOP_1sem_Lab6
 {
@@ -12,6 +11,7 @@ namespace OOP_1sem_Lab6
             do
             {
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(
                 """
                 Choose one of the following options:
@@ -19,8 +19,9 @@ namespace OOP_1sem_Lab6
                 2 Second Task (work with images).
                 0 Exit.
                 """);
+                Console.ResetColor();
 
-                menu = Console.ReadLine();
+                menu = Console.ReadLine()!;
                 switch (menu)
                 {
                     case "1":
