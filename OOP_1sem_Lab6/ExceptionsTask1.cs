@@ -110,6 +110,31 @@ namespace OOP_1sem_Lab6
                 Console.ResetColor();
             }
 
+            try
+            {
+                writerNoFile.Close();
+                writerBadData.Close();
+                writerOverflow.Close();
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                double average = (double)validSum / validCount;
+
+                Console.WriteLine("\n--- Результат ---");
+                Console.WriteLine($"Кількість валідних добутків: {validCount}");
+                Console.WriteLine($"Середнє арифметичне: {average}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Неможливо обчислити середнє (можливо, немає валідних даних).");
+            }
+
+            Console.WriteLine("Роботу завершено. Перевірте файли .txt");
+            Console.ReadKey();
         }
     }
 }
