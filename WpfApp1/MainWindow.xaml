@@ -3,6 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Image Mirroring" Height="450" Width="600"
         WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="#b8ccf2"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,11 +34,11 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TxtFolderPath" Text="." VerticalAlignment="Center" Padding="3"/>
-                    <Button Content="Скинути шлях" Grid.Column="1" Margin="5,0,0,0" Padding="10,2" Click="BtnRefresh_Click"/>
+                    <TextBox x:Name="TxtFolderPath" Text="." VerticalAlignment="Center" FontSize="14" Padding="3"/>
+                    <Button Content="Скинути шлях" Background="#DDDDDD" Grid.Column="1" Margin="5,0,0,0" Padding="10,2" Click="BtnRefresh_Click"/>
                 </Grid>
                 <TextBlock Text="Введіть повний шлях або залиште '.' для поточної папки програми" 
-                           FontSize="10" Foreground="Gray" Margin="0,2,0,0"/>
+                           FontSize="12" Foreground="Gray" Margin="0,2,0,0"/>
             </StackPanel>
         </GroupBox>
 
@@ -34,18 +49,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="BtnStartVertical" Margin="0,10,5,10" MinHeight="30" Click="BtnStart_Click"
-            FontWeight="Bold" Background="#DDDDDD" Grid.Column="0">
-            <TextBlock Text="Почати обробку (Дзеркальне відображення За Y)" TextWrapping="Wrap" TextAlignment="Center"/>
+            FontWeight="Bold" Grid.Column="0">
+                <TextBlock Text="Почати обробку (Дзеркальне відображення За Y)" FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button>
 
             <Button x:Name="BtnStartHorizontal" Margin="5,10,0,10" MinHeight="30" Click="BtnStart_Click"
-            FontWeight="Bold" Background="#DDDDDD" Grid.Column="1">
-            <TextBlock Text="Почати обробку (Дзеркальне відображення за Х)" TextWrapping="Wrap" TextAlignment="Center"/>
+            FontWeight="Bold" Grid.Column="1">
+            <TextBlock Text="Почати обробку (Дзеркальне відображення за Х)" FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button>
 
             <Button x:Name="BtnStart" Margin="5,10,0,10" MinHeight="30" Click="BtnStart_Click"
-            FontWeight="Bold" Background="#DDDDDD" Grid.Column="2">
-                <TextBlock Text="Почати обробку (Дзеркальне відображення за обома осями)" TextWrapping="Wrap" TextAlignment="Center"/>
+            FontWeight="Bold" Grid.Column="2">
+                <TextBlock Text="Почати обробку (Дзеркальне відображення за обома осями)" FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button>
         </Grid>
 
@@ -55,7 +70,7 @@
         </StackPanel>
 
         <GroupBox Header="Журнал подій" Grid.Row="3">
-            <ListBox x:Name="LstLog" FontFamily="Consolas" FontSize="12"/>
+            <ListBox x:Name="LstLog" FontFamily="Consolas" FontSize="14"/>
         </GroupBox>
     </Grid>
 </Window>
