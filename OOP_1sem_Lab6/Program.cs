@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace OOP_1sem_Lab6
 {
@@ -28,7 +29,9 @@ namespace OOP_1sem_Lab6
                         ExceptionsTask1.Task1GenerateMenu();
                         break;
                     case "2":
-                        ExceptionsTask2.Task2ReadFiles();
+                        string solutionDir = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\.."));
+                        string task2Directory = Path.Combine(solutionDir, "WpfApp1", "bin", "Release", "net8.0-windows", "WpfApp1.exe");
+                        Process.Start(task2Directory);
                         break;
                     case "0":
                         Console.WriteLine("Exiting...");
