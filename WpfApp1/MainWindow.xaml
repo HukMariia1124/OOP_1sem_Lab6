@@ -27,9 +27,27 @@
             </StackPanel>
         </GroupBox>
 
-        <Button x:Name="BtnStart" Content="Почати обробку (Дзеркальне відображення)" 
-                Grid.Row="1" Margin="0,10" Height="30" Click="BtnStart_Click" 
-                FontWeight="Bold" Background="#DDDDDD"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BtnStartVertical" Margin="0,10,5,10" MinHeight="30" Click="BtnStart_Click"
+            FontWeight="Bold" Background="#DDDDDD" Grid.Column="0">
+            <TextBlock Text="Почати обробку (Дзеркальне відображення За Y)" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+
+            <Button x:Name="BtnStartHorizontal" Margin="5,10,0,10" MinHeight="30" Click="BtnStart_Click"
+            FontWeight="Bold" Background="#DDDDDD" Grid.Column="1">
+            <TextBlock Text="Почати обробку (Дзеркальне відображення за Х)" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+
+            <Button x:Name="BtnStart" Margin="5,10,0,10" MinHeight="30" Click="BtnStart_Click"
+            FontWeight="Bold" Background="#DDDDDD" Grid.Column="2">
+                <TextBlock Text="Почати обробку (Дзеркальне відображення за обома осями)" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+        </Grid>
 
         <StackPanel Grid.Row="2" Margin="0,0,0,10">
             <TextBlock x:Name="TxtStatus" Text="Готово до роботи" Margin="0,0,0,5"/>

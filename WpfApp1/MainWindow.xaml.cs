@@ -13,6 +13,13 @@ namespace WpfImageMirror
     {
         private readonly Regex regexExtForImage = new Regex(@"^((bmp)|(gif)|(tiff?)|(jpe?g)|(png))$", RegexOptions.IgnoreCase);
 
+        private enum MirrorMode : byte
+        {
+            Vertical = 1,
+            Horizontal = 2,
+            Both = 3
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,13 +42,20 @@ namespace WpfImageMirror
                 return;
             }
 
+            BtnStartVertical.IsEnabled = false;
+            BtnStartHorizontal.IsEnabled = false;
             BtnStart.IsEnabled = false;
             LstLog.Items.Clear();
             Log("Scan started...");
 
             try
             {
-                await Task.Run(() => ProcessImages(folderPath));
+                if (sender == BtnStartVertical)
+                    await Task.Run(() => ProcessImages(folderPath, MirrorMode.Vertical));
+                else if (sender == BtnStartHorizontal)
+                    await Task.Run(() => ProcessImages(folderPath, MirrorMode.Horizontal));
+                else if (sender == BtnStart)
+                    await Task.Run(() => ProcessImages(folderPath, MirrorMode.Both));
             }
             catch (Exception ex)
             {
@@ -49,13 +63,15 @@ namespace WpfImageMirror
             }
             finally
             {
+                BtnStartVertical.IsEnabled = true;
+                BtnStartHorizontal.IsEnabled = true;
                 BtnStart.IsEnabled = true;
                 TxtStatus.Text = "Processing completed.";
                 PbStatus.Value = 0;
             }
         }
 
-        private void ProcessImages(string path)
+        private void ProcessImages(string path, MirrorMode mode)
         {
             string[] files;
             try
@@ -88,11 +104,25 @@ namespace WpfImageMirror
                 {
                     using (Bitmap bitmap = new Bitmap(fileName))
                     {
-                        bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
-
                         string nameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
-
-                        string newPath = Path.Combine(path, nameWithoutExt + "-mirrored.gif");
+                        string newPath;
+                        switch (mode)
+                        {
+                            case MirrorMode.Vertical:
+                                bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                                newPath = Path.Combine(path, $"{nameWithoutExt}-mirroredY.gif");
+                                break;
+                            case MirrorMode.Horizontal:
+                                bitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                                newPath = Path.Combine(path, $"{nameWithoutExt}-mirroredX.gif");
+                                break;
+                            case MirrorMode.Both:
+                            default:
+                                bitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                                bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                                newPath = Path.Combine(path, $"{nameWithoutExt}-mirroredXY.gif");
+                                break;
+                        }
 
                         bitmap.Save(newPath, ImageFormat.Gif);
 
