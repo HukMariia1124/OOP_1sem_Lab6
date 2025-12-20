@@ -22,12 +22,37 @@ namespace WpfImageMirror
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
             TxtFolderPath.Text = Directory.GetCurrentDirectory();
-            Log("Шлях скинуто на папку запуску програми.");
+            Log("Path reset to application startup folder.");
         }
 
         private async void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-            //Start of the process logic
+            string folderPath = TxtFolderPath.Text;
+
+            if (!Directory.Exists(folderPath))
+            {
+                MessageBox.Show("The specified folder does not exist!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            BtnStart.IsEnabled = false;
+            LstLog.Items.Clear();
+            Log("Scan started...");
+
+            try
+            {
+                await Task.Run(() => ProcessImages(folderPath));
+            }
+            catch (Exception ex)
+            {
+                Log($"Critical error: {ex.Message}", true);
+            }
+            finally
+            {
+                BtnStart.IsEnabled = true;
+                TxtStatus.Text = "Processing completed.";
+                PbStatus.Value = 0;
+            }
         }
 
         private void ProcessImages(string path)
